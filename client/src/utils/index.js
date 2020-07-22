@@ -39,7 +39,12 @@ export class Validation {
 
 export const handleAuthSubmit = async ({ values, type, setError, dispatch, history, location }) => {
   const { data } = await axios.post(`/auth/${type}`, values)
-  if (data.err) return setError(data.err)
+  if (data.err) {
+    setError(data.err)
+    setTimeout(() => {
+      setError('')
+    }, 3000)
+  }
   const { _id, isAdmin, name, email, token } = data
 
   setError('')

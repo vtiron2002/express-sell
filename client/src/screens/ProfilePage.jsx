@@ -27,8 +27,12 @@ function ProfilePage({ history }) {
         onSubmit={async (values) => {
           const { data } = await axios.post(`/auth/edit/${user._id}`, values, { headers: { Authorization: TOKEN } })
           if (data.err) return setError(data.err)
+          setError('')
           dispatch({ type: SET_USER, payload: data.newUser })
           setMessage('Profile Updated')
+          setTimeout(() => {
+            setMessage('')
+          }, 3000)
         }}
       >
         {(props) => (
