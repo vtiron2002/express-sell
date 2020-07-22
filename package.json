@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vtiron2002/express-sell/issues"
   },
-  "homepage": "https://github.com/vtiron2002/express-sell#readme"
+  "homepage": "https://github.com/vtiron2002/express-sell#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
