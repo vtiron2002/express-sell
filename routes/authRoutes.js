@@ -82,7 +82,9 @@ route.post('/edit/:id', isAuth, async (req, res) => {
     if (req.body.password.length > 0) {
       samePassword = await bcrypt.compare(req.body.password, user.password)
       if (samePassword) throw Error('Cant use the same password.')
+    } else {
       samePassword = user.password
+      
     }
 
     const hashedPass = samePassword || (await bcrypt.hash(req.body.password, 12))
