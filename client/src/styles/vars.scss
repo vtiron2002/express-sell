@@ -1,0 +1,9 @@
+$mainText: rgb(32, 32, 32);
+
+@mixin darkBtn {
+  background: $mainText;
+  color: white;
+  padding: 0.5em;
+  border-radius: 4px;
+  border: none;
+}

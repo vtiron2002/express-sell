@@ -1,0 +1,579 @@
+// @import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import './vars.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  color: $mainText;
+}
+
+hr {
+  color: #ccc;
+}
+
+a {
+  text-decoration: none;
+  color: $mainText;
+}
+
+button {
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin-bottom: 1em;
+}
+
+html,
+body,
+#root {
+  height: 100vh;
+  background: #ccc;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  font-size: 1rem;
+  background: white;
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  #menu {
+    display: none;
+  }
+
+  label {
+    display: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    display: flex;
+  }
+
+  &__logo {
+    letter-spacing: 2px;
+
+    strong {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__buttons {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 1em;
+    font-size: 0.8rem;
+    place-items: center;
+
+    a:last-child {
+      font-size: 1.5rem;
+      position: relative;
+
+      .amount {
+        $size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        height: $size;
+        width: $size;
+        top: -10px;
+        right: -10px;
+        padding: 0.4em;
+        background: red;
+        border-radius: 50%;
+        color: white;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+// Pages
+
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 2em auto;
+
+  button.go-back {
+    margin-bottom: 1em;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    width: 6rem;
+    background: none;
+    border: none;
+
+    i {
+      margin-right: 0.5em;
+    }
+  }
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 30% auto 250px;
+  gap: 1em;
+
+  &__img {
+    width: 100%;
+  }
+
+  &__desc {
+    padding: 1em;
+    background: white;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+
+    .name {
+      display: inline-block;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+      font-size: 1.3rem;
+    }
+
+    .price {
+      color: green;
+      font-weight: 500;
+      margin-bottom: 0.5em;
+    }
+
+    .description {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+
+  &__addToCart {
+    padding: 1em;
+    background: white;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    display: flex;
+    flex-direction: column;
+
+    .price,
+    .availability,
+    .quantity {
+      margin-bottom: 1em;
+      font-size: 0.8em;
+    }
+
+    .quantity select {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      padding: 0.1em;
+    }
+
+    button.addToCart {
+      margin-top: auto;
+      @include darkBtn;
+      padding: 1em;
+
+      &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+
+  .top {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1em;
+
+    &__sort {
+      position: relative;
+      margin-right: 1em;
+
+      select {
+        border: 1px solid $mainText;
+        padding: 0.5em;
+        appearance: none;
+        height: 100%;
+      }
+    }
+
+    &__searchbar {
+      border: 1px solid $mainText;
+      padding: 0.2em;
+      display: flex;
+      background: white;
+
+      input {
+        border: none;
+        font-size: 0.8rem;
+        padding: 0.4em;
+      }
+
+      button {
+        border: none;
+        background: none;
+        font-size: 1rem;
+        padding: 0.2em;
+      }
+    }
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    grid-template-rows: repeat(auto-fill, 300px);
+    gap: 1em;
+    row-gap: 3em;
+    width: 100%;
+    margin: auto;
+
+    .item {
+      background: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: 0.2s ease;
+
+      &:hover {
+        transform: scale(1.02);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.151);
+      }
+
+      &:active {
+        transform: scale(0.99);
+      }
+
+      img {
+        width: 100%;
+      }
+
+      &__body {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 1em;
+        font-size: 0.7rem;
+
+        .name {
+          margin-bottom: 0.5em;
+        }
+
+        .bottom {
+          margin-top: auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+
+          .price {
+            color: green;
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.cart {
+  position: relative;
+
+  h2 {
+    margin-bottom: 1em;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: auto 300px;
+    gap: 1em;
+  }
+
+  &__items {
+    display: grid;
+    gap: 1em;
+    position: relative;
+    grid-template-rows: repeat(auto-fill, minmax(1fr, 1fr));
+
+    .price-title {
+      position: absolute;
+      right: 15px;
+      top: -40px;
+      padding: 0.5em;
+      font-weight: bold;
+    }
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 100px auto minmax(min-content, max-content);
+    background: white;
+
+    a.name {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .middle {
+      padding: 1em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price {
+      padding: 1em;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      button {
+        float: right;
+        @include darkBtn;
+      }
+    }
+
+    &__img {
+      width: 100%;
+      align-self: center;
+    }
+  }
+
+  &__subtotal {
+    background: white;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+
+    h3 {
+      margin-bottom: 1em;
+      font-size: 1rem;
+    }
+
+    .clearCart {
+      @include darkBtn;
+      // background: red;
+      color: red;
+      background: none;
+      font-size: 0.9rem;
+      padding: 0;
+      margin-bottom: 1em;
+      align-self: flex-start;
+      justify-self: flex-start;
+    }
+
+    .proceedToCheckout {
+      @include darkBtn;
+      font-size: 1rem;
+      margin-top: auto;
+    }
+  }
+}
+
+.login,
+.signup,
+.shipping,
+.payment,
+.profile {
+  &__container {
+    max-width: 400px;
+    background: white;
+    padding: 1em;
+    margin: auto;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+
+    > button:last-child {
+      background: grey;
+    }
+  }
+
+  &__title {
+    margin-bottom: 1em;
+  }
+
+  .form-group {
+    margin-bottom: 1em;
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+
+    input {
+      width: 100%;
+      font-size: 1em;
+      padding: 0.4em;
+      border: 1px solid #ccc;
+    }
+  }
+
+  button {
+    @include darkBtn;
+    width: 100%;
+    display: inline-block;
+    font-size: 1rem;
+    margin-bottom: 1em;
+  }
+
+  hr {
+    margin-bottom: 1em;
+    color: #ccc;
+  }
+
+  p {
+    margin-bottom: 1em;
+  }
+
+  .radio-group {
+    margin-bottom: 1em;
+
+    input {
+      margin-right: 1em;
+    }
+  }
+}
+
+.placeOrder {
+  display: grid;
+  grid-template-columns: auto 250px;
+  gap: 1em;
+
+  .title {
+    margin-bottom: 1em;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  &__info {
+    display: grid;
+    gap: 1em;
+
+    > div {
+      background: white;
+      padding: 1em;
+    }
+
+    .orders {
+      .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .ordersGrid {
+        display: grid;
+        gap: 1em;
+
+        .order {
+          display: grid;
+          grid-template-columns: 100px auto minmax(min-content, max-content);
+          gap: 1em;
+
+          &__img {
+            width: 100%;
+          }
+
+          &__info {
+            .name {
+              margin-bottom: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &__summary {
+    background: white;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+
+    button.placeOrderBtn {
+      @include darkBtn;
+      margin-bottom: 1em;
+      font-size: 1rem;
+    }
+
+    ul {
+      li {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.3em;
+      }
+    }
+  }
+}
+
+.orderplaced {
+  font-size: clamp(0.7em, 2vw, 1em);
+
+  > h1,
+  > h3,
+  > p {
+    margin-bottom: 0.5em;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}
+
+.orders {
+  table,
+  th,
+  td {
+    padding: 0.5em;
+  }
+  table {
+    border-collapse: collapse;
+    background: white;
+    width: 100%;
+
+    tbody {
+      tr {
+        &:nth-child(odd) {
+          background: rgb(221, 221, 221);
+        }
+        td {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  h2 {
+    margin-bottom: 1em;
+  }
+}
+
+.profile {
+  max-width: 700px;
+  margin: auto;
+  background: white;
+  padding: 1em;
+
+  button.signOutBtn {
+    background: gray;
+  }
+}
+
+@import './responsive.scss';
