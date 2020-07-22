@@ -25,7 +25,7 @@ route.post('/signup', async (req, res) => {
   const { name, email, password, confirmPassword } = req.body
   try {
     const userFound = await Users.findOne({ email })
-    console.log(userFound);
+    console.log(userFound)
     if (userFound) throw Error('User with that email already exists.')
     if (password !== confirmPassword) throw Error(`Passwords don't match.`)
 
@@ -82,10 +82,10 @@ route.post('/edit/:id', isAuth, async (req, res) => {
     if (req.body.password.length > 0) {
       samePassword = await bcrypt.compare(req.body.password, user.password)
       if (samePassword) throw Error('Cant use the same password.')
+      samePassword = user.password
     }
 
-
-    const hashedPass = await bcrypt.hash(req.body.password, 12)
+    const hashedPass = samePassword || (await bcrypt.hash(req.body.password, 12))
     await Users.findByIdAndUpdate(id, { ...req.body, password: hashedPass })
 
     const newUser = await Users.findById(id)
