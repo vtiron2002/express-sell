@@ -13,7 +13,7 @@ const getToken = (user) => {
       name: user.name,
       email: user.email
     },
-    'BWuSoPsRv_VTvOLT1-JQo2X7cXscucOlMppjp9hMlOc6bA3a1dN4oSiuQgTOveSJPLP8hg',
+    process.env.JWT_SECRET,
     {
       expiresIn: '3h'
     }
